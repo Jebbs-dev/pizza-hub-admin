@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const images = [
   "/images/auth-bg-1.jpg",
@@ -12,6 +14,9 @@ const images = [
 ];
 
 const AuthPage = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -39,6 +44,14 @@ const AuthPage = () => {
     resetInterval();
   };
 
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (session) {
+    router.push("/");
+  }
+
   return (
     <div className="w-full h-full md:h-screen bg-orange-50 dark:bg-primary/5 flex flex-col lg:grid lg:grid-cols-2 relative overflow-hidden">
       {/* Slides */}
@@ -56,7 +69,7 @@ const AuthPage = () => {
           }}
         />
       ))}
-      <div className="relative bg-black lg:bg-orange-50 w-full h-full bg-opacity-50 lg:bg-opacity-100 lg:z-0">
+      <div className="relative bg-black lg:bg-orange-50 lg:bg-[url('/images/new-bg-1.jpg')] bg-cover  w-full h-full bg-opacity-50 lg:bg-opacity-100 lg:z-0">
         <div className="sm:h-[100vh] min-h-screen lg:bg-opacity-70 text-sm flex items-center lg:z-20">
           <h1 className="absolute top-3 left-5 mx-auto md:top-10 md:left-10 text-black dark:text-foreground text-2xl md:text-3xl">
             <>
@@ -66,7 +79,7 @@ const AuthPage = () => {
                 alt="Logo"
                 width={150}
                 height={100}
-                className="block md:hidden"
+                className="block lg:hidden"
               />
 
               {/* Desktop image */}
@@ -75,7 +88,7 @@ const AuthPage = () => {
                 alt="Logo"
                 width={150}
                 height={100}
-                className="hidden md:block"
+                className="hidden lg:block"
               />
             </>
           </h1>
@@ -89,7 +102,7 @@ const AuthPage = () => {
 
             <div className="flex flex-row items-center justify-center">
               <Button
-                // onClick={() => signIn("google", { callbackUrl: "/profiles" })}
+                onClick={() => signIn("google", { callbackUrl: "/" })}
                 className=" bg-white text-black border border-orange-400 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-60 transition"
               >
                 <FcGoogle size={32} />
