@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pizza Hub Admin Dashboard
 
-## Getting Started
+## Author
+**Ojebiyi Fulness**
 
-First, run the development server:
+## Overview
+Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. It provides a comprehensive interface for managing a pizza restaurant's operations, including order management, inventory tracking, and user administration. The application features a clean, intuitive UI with real-time updates and secure authentication.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+- **Framework**: Next.js 15
+- **Authentication**: NextAuth.js
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **UI Components**: Radix UI/Shadcn
+- **Date Handling**: date-fns, dayjs
+- **Icons**: Lucide React, React Icons
+- **Table Management**: TanStack Table
+- **Type Safety**: TypeScript
+
+## Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- Google Cloud Platform account (for OAuth)
+
+## Local Development Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone [repository-url]
+   cd pizza-hub-admin
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Environment Variables Setup**
+   Create a `.env.local` file in the root directory with the following variables:
+   ```
+   # Google OAuth Configuration
+   GOOGLE_CLIENT_ID=your_client_id
+   GOOGLE_CLIENT_SECRET=your_client_secret
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your_nextauth_secret
+
+   # Database Configuration (if applicable)
+   DATABASE_URL=your_database_url
+   ```
+
+   ### Setting up Google OAuth Credentials:
+   1. Navigate to [Google Cloud Console](https://console.cloud.google.com)
+   2. Create a new project or select an existing one
+   3. Enable the Google+ API
+   4. Go to Credentials → Create Credentials → OAuth Client ID
+   5. Set up the OAuth consent screen
+   6. Create OAuth 2.0 Client ID
+   7. Add authorized redirect URIs:
+      - http://localhost:3000/api/auth/callback/google (for development)
+      - https://your-production-domain.com/api/auth/callback/google (for production)
+   8. Copy the Client ID and Client Secret to your `.env.local` file
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Project Structure
+```
+pizza-hub-admin/
+├── src/
+│   ├── app/          # Next.js app directory and page components
+│   ├── components/   # Reusable UI components
+│   ├── hooks/        # Custom React hooks for shared logic
+│   ├── lib/          # Utility functions and configurations
+│   ├── modules/      # Feature-specific modules
+│   ├── providers/    # React context providers
+│   ├── store/        # Zustand state management
+│   └── styles/       # Global styles
+├── public/           # Static assets
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Features
+- Secure authentication with Google OAuth
+- Responsive dashboard layout
+- Real-time data updates
+- Advanced table management
+- Date and time handling
+- Modern UI components
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Third-Party Libraries
+- **@radix-ui/react-***: Accessible UI components
+- **@tanstack/react-table**: Advanced table functionality
+- **date-fns & dayjs**: Date manipulation and formatting
+- **lucide-react & react-icons**: Icon libraries
+- **zustand**: State management
+- **class-variance-authority**: Component styling utilities
+- **tailwind-merge**: Tailwind CSS class merging
+- **tailwindcss-animate**: Animation utilities
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development Notes
+- The project uses Turbopack for faster development builds
+- TypeScript is strictly enforced
+- ESLint is configured for code quality
+- Tailwind CSS is used with a custom configuration
 
-## Learn More
+## Deployment
+The application can be deployed on Vercel or any other platform that supports Next.js applications. Make sure to:
+1. Set up all environment variables in your deployment platform
+2. Configure the production OAuth redirect URIs
+3. Update the `NEXTAUTH_URL` to your production domain
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
+[Add your license information here]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
