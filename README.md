@@ -16,6 +16,8 @@ Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. I
 - **Icons**: Lucide React, React Icons
 - **Table Management**: TanStack Table
 - **Type Safety**: TypeScript
+- **Testing**: Jest 29.7.0, React Testing Library
+
 
 ## Prerequisites
 - Node.js (v18 or higher)
@@ -93,6 +95,7 @@ pizza-hub-admin/
 - Advanced table management
 - Date and time handling
 - Modern UI components
+- Comprehensive test suite with Jest and React Testing Library
 
 ## Third-Party Libraries
 - **@radix-ui/react-***: Accessible UI components
@@ -103,12 +106,25 @@ pizza-hub-admin/
 - **class-variance-authority**: Component styling utilities
 - **tailwind-merge**: Tailwind CSS class merging
 - **tailwindcss-animate**: Animation utilities
+- **react-day-picker**: Date picker component
 
 ## Development Notes
 - The project uses Turbopack for faster development builds
 - TypeScript is strictly enforced
 - ESLint is configured for code quality
 - Tailwind CSS is used with a custom configuration
+- Jest and React Testing Library are set up for testing
+- Modern ESLint configuration with @eslint/eslintrc
+
+## Testing
+The project includes a comprehensive test suite:
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+```
 
 ## Deployment
 The application can be deployed on Vercel or any other platform that supports Next.js applications. Make sure to:
