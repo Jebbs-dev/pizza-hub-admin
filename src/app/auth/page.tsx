@@ -20,6 +20,7 @@ const AuthPage = () => {
   const router = useRouter();
   const { toast } = useToast();
 
+  const [isSigninLoading, setIsSigninLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -49,7 +50,9 @@ const AuthPage = () => {
 
   const handleSignIn = async () => {
     try {
+      setIsSigninLoading(true);
       await signIn("google", { callbackUrl: "/" });
+      setIsSigninLoading(false);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
@@ -57,6 +60,7 @@ const AuthPage = () => {
         title: "Authentication Error",
         description: "Failed to sign in with Google. Please try again.",
       });
+      setIsSigninLoading(false);
     }
   };
 
@@ -136,8 +140,19 @@ const AuthPage = () => {
                 onClick={handleSignIn}
                 className="bg-white text-black border border-orange-400 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-60 transition"
               >
-                <FcGoogle size={32} />
-                <span>Sign in with Google</span>
+                {isSigninLoading ? (
+                  <>
+                    <span>Signing in </span>
+                    <span className="ml-2">
+                      <FaSpinner className="animate-spin" />
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <FcGoogle size={32} />
+                    <span>Sign in with Google</span>
+                  </>
+                )}
               </Button>
             </div>
           </div>
@@ -173,10 +188,6 @@ const AuthPage = () => {
             ))}
           </div>
         </div>
-
-        {/* Navigation Dots */}
-
-        {/* <div className="absolute inset-0 bg-transparent dark:bg-black/30 z-10" /> */}
       </div>
     </div>
   );
