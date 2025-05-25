@@ -18,6 +18,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface TableFilterProps {
   title: string;
@@ -44,55 +45,65 @@ const TableFilters = ({
     from: new Date(),
     to: new Date(),
   });
+  const { toast } = useToast();
 
   const handleFilterChange = async (value: string) => {
-    onFilterChange(value);
+    try {
+      onFilterChange(value);
 
-    const now = new Date();
+      const now = new Date();
 
-    let startDate: string;
-    const endDate = formatDate(now).toString(); // Today's date
+      let startDate: string;
+      const endDate = formatDate(now).toString(); // Today's date
 
-    // Map the selected filter to date ranges
-    switch (value) {
-      case "today":
-        startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth(), now.getDate())
-        ).toString();
-        break;
-      case "last_24_hours":
-        startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1)
-        ).toString();
-        break;
-      case "this_week":
-        startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
-        ).toString();
-        break;
-      case "this_month":
-        startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth() - 1, now.getDate())
-        ).toString();
-        break;
-      case "this_year":
-        startDate = formatDate(
-          new Date(now.getFullYear() - 1, now.getMonth(), now.getDate())
-        ).toString();
-        break;
-      default:
-        startDate = "";
+      // Map the selected filter to date ranges
+      switch (value) {
+        case "today":
+          startDate = formatDate(
+            new Date(now.getFullYear(), now.getMonth(), now.getDate())
+          ).toString();
+          break;
+        case "last_24_hours":
+          startDate = formatDate(
+            new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1)
+          ).toString();
+          break;
+        case "this_week":
+          startDate = formatDate(
+            new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+          ).toString();
+          break;
+        case "this_month":
+          startDate = formatDate(
+            new Date(now.getFullYear(), now.getMonth() - 1, now.getDate())
+          ).toString();
+          break;
+        case "this_year":
+          startDate = formatDate(
+            new Date(now.getFullYear() - 1, now.getMonth(), now.getDate())
+          ).toString();
+          break;
+        default:
+          startDate = "";
+      }
+
+      // If the value is "custom", don't make the API call here
+      if (value === "custom") return;
+
+      if (value === "single") return;
+
+      onDateFilterChange({
+        startDate,
+        endDate,
+      });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to apply date filter. Please try again.",
+      });
     }
-
-    // If the value is "custom", don't make the API call here
-    if (value === "custom") return;
-
-    if (value === "single") return;
-
-    onDateFilterChange({
-      startDate,
-      endDate,
-    });
   };
 
   return (
@@ -124,6 +135,7 @@ const TableFilters = ({
 
             {selectedFilter !== "" && (
               <Button
+              className="bg-orange-400"
                 size="icon"
                 onClick={() => {
                   onDateFilterChange({
@@ -146,7 +158,7 @@ const TableFilters = ({
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "xl:w-[280px] justify-start text-left font-normal",
+                    "xl:w-[280px] justify-start text-left font-normal ml-2",
                     !date && "text-muted-foreground"
                   )}
                 >
