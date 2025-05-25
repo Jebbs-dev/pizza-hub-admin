@@ -13,7 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -24,6 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { toast } = useToast();
+  const [isSignoutLoading, setIsSignoutLoading] = useState(false);
 
   useEffect(() => {
     // If there's no session, redirect to the authentication page
@@ -34,7 +35,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const handleSignOut = async () => {
     try {
+      setIsSignoutLoading(true);
       await signOut();
+      setIsSignoutLoading(false);
+
+      toast({
+        variant: "default",
+        title: "Success",
+        description: "Signed out successfully",
+      });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
@@ -42,6 +51,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         title: "Error",
         description: "Failed to sign out. Please try again.",
       });
+      setIsSignoutLoading(false);
     }
   };
 
@@ -91,10 +101,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Breadcrumb>
 
           <Button
-            className="bg-orange-400 h-7 md:h-9 px-2 md:px-4 text-xs md:text-base"
+            className="bg-orange-400 h-7 md:h-9 px-2 md:px-4 text-xs md:text-base hover:bg-orange-600"
             onClick={handleSignOut}
           >
-            Sign out
+            {isSignoutLoading ? (
+              <p className="flex flex-row">
+                <span>Signing out </span>
+                <span className="ml-2">
+                  <FaSpinner />
+                </span>
+              </p>
+            ) : (
+              <p>Sign out</p>
+            )}
           </Button>
         </header>
 
