@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { FaSpinner } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -34,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const handleSignOut = async () => {
     try {
       await signOut();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
         variant: "destructive",
@@ -47,6 +48,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen text-3xl text-orange-400">
+        <span className="absolute top-4 left-5">
+          <Image
+            src="/images/logo/pizza-hut-light.png"
+            alt="Logo"
+            width={150}
+            height={100}
+            className="object-contain"
+          />
+        </span>
         Loading
         <FaSpinner className="ml-3 animate-spin" />
       </div>
@@ -80,8 +90,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </BreadcrumbList>
           </Breadcrumb>
 
-          <Button 
-            className="bg-orange-400 h-7 md:h-9 px-2 md:px-4 text-xs md:text-base" 
+          <Button
+            className="bg-orange-400 h-7 md:h-9 px-2 md:px-4 text-xs md:text-base"
             onClick={handleSignOut}
           >
             Sign out
