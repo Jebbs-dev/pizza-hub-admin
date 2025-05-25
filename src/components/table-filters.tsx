@@ -158,7 +158,7 @@ const TableFilters = ({
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "xl:w-[280px] justify-start text-left font-normal ml-2",
+                    "xl:w-[280px] justify-start text-left font-normal xl:ml-2",
                     !date && "text-muted-foreground"
                   )}
                 >
@@ -196,7 +196,7 @@ const TableFilters = ({
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "xl:w-[280px] justify-start text-left font-normal",
+                    "xl:w-[280px] justify-start text-left font-normal xl:ml-2",
                     !dateRange?.from && "text-muted-foreground"
                   )}
                 >
