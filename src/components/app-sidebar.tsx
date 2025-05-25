@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Sidebar,
@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Home, ShoppingCart } from "lucide-react";
+import { Home, LogOut, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
@@ -30,11 +30,20 @@ const items = [
     icon: ShoppingCart,
   },
 ];
+
+const logoutItem = [
+  {
+    title: "Logout",
+    url: "",
+    icon: LogOut,
+  },
+];
+
 export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="h-screen">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -61,13 +70,19 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton 
+                    asChild
+                    className="hover:bg-orange-600/10 hover:text-orange-400 rounded-lg"
+                  >
                     <Link
                       href={item.url}
-                      className={clsx("pl-4 text-orange-600 hover:bg-orange-600/10 hover:text-orange-400", {
-                        "border-opacity-100 font-medium bg-orange-600/20 rounded-lg text-orange-600":
-                          pathname === item.url,
-                      })}
+                      className={clsx(
+                        "pl-4 text-orange-600 flex items-center gap-2",
+                        {
+                          "border-opacity-100 font-medium bg-orange-600/20 rounded-lg text-orange-600":
+                            pathname === item.url,
+                        }
+                      )}
                     >
                       <item.icon />
                       <span>{item.title}</span>
@@ -80,11 +95,19 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenuItem>
-          <SidebarMenuButton onClick={() => signOut()}>
-            Logout
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+        <SidebarMenu className="mb-10">
+          {logoutItem.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                onClick={() => signOut()}
+                className="text-orange-600"
+              >
+                <item.icon />
+                <span>{item.title}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   );
