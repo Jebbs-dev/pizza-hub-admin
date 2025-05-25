@@ -63,15 +63,6 @@ const AuthPage = () => {
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen text-3xl text-orange-400">
-        <span className="fixed top-4 left-5">
-          <Image
-            src="/images/logo/pizza-hut-light.png"
-            alt="Logo"
-            width={150}
-            height={100}
-            className="object-contain"
-          />
-        </span>
         Loading
         <FaSpinner className="ml-3 animate-spin" />
       </div>
