@@ -1,7 +1,7 @@
 # Pizza Hub Admin Dashboard
 
 ## Author
-**Ojebiyi Fulness**
+**Fulness Ojebiyi**
 
 ## Overview
 Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. It provides a comprehensive interface for managing a pizza restaurant's operations, including order management, inventory tracking, and user administration. The application features a clean, intuitive UI with real-time updates and secure authentication.
@@ -43,7 +43,7 @@ Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. I
    # Google OAuth Configuration
    GOOGLE_CLIENT_ID=your_client_id
    GOOGLE_CLIENT_SECRET=your_client_secret
-   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_URL=http://localhost:3000 || https://your-production-domain.com
    NEXTAUTH_SECRET=your_nextauth_secret
 
    # Database Configuration (if applicable)
@@ -82,7 +82,6 @@ pizza-hub-admin/
 │   ├── modules/      # Feature-specific modules
 │   ├── providers/    # React context providers
 │   ├── store/        # Zustand state management
-│   └── styles/       # Global styles
 ├── public/           # Static assets
 └── ...
 ```
@@ -90,7 +89,7 @@ pizza-hub-admin/
 ## Key Features
 - Secure authentication with Google OAuth
 - Responsive dashboard layout
-- Real-time data updates
+- Simulated real-time data updates
 - Advanced table management
 - Date and time handling
 - Modern UI components
@@ -125,7 +124,7 @@ The application can be deployed on Vercel or any other platform that supports Ne
 5. Create a Pull Request
 
 ## License
-[Add your license information here]
+Copyright (c) 2025 Fulness Ojebiyi
 
-
+All rights reserved.
 
