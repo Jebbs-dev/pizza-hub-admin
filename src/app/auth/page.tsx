@@ -123,7 +123,7 @@ const AuthPage = () => {
             </>
           </h1>
           <div className="w-[80%] h-[300px] mx-auto flex flex-col justify-center space-y-4 xl:w-[60%] bg-orange-50 bg-opacity-60 lg:bg-transparent border-2 border-orange-400 rounded-md p-4 lg:p-10 mt-10 sm:mt-0">
-            <h1 className="text-2xl md:text-3xl font-semibold text-white text-center mb-3">
+            <h1 className="text-2xl md:text-3xl font-semibold text-white lg:text-orange-400 text-center mb-3">
               Sign in to your account
             </h1>
             <p className="text-sm md:text-base text-center  lg:text-neutral-600 dark:text-foreground font-light">
