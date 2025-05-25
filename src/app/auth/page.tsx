@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { FaSpinner } from "react-icons/fa6";
 
 const images = [
   "/images/auth-bg-1.jpg",
@@ -45,7 +46,12 @@ const AuthPage = () => {
   };
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-3xl text-orange-400">
+        Loading
+        <FaSpinner className="ml-3 animate-spin" />
+      </div>
+    );
   }
 
   if (session) {
