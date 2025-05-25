@@ -130,7 +130,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
             onChange={(e) => {
               setQueryKey(e.target.value);
             }}
-            className="text-sm md:text-base md:max-w-sm lg:flex-shrink-0"
+            className="text-sm md:text-base md:max-w-sm lg:flex-shrink-0 outline-none"
           />
         </div>
 
@@ -141,10 +141,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead
-                        key={header.id}
-                        className="text-orange-400"
-                      >
+                      <TableHead key={header.id} className="text-orange-400">
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -165,11 +162,11 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
+                      <TableCell key={cell.id} className="text-xs md:text-sm">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -198,6 +195,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
           <div className="md:hidden flex items-center justify-end gap-2 py-4">
             <Button
               variant="outline"
+              className="text-orange-400 hover:text-orange-600 bg-white hover:bg-orange-50"
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
@@ -207,6 +205,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
             <Button
               variant="outline"
               size="sm"
+              className="text-orange-400 hover:text-orange-600 bg-white hover:bg-orange-50"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
@@ -219,7 +218,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
           </div>
           <div className="hidden md:flex items-center gap-4 space-x-6 lg:space-x-8">
             <div className="flex items-center gap-2">
-              <p className="text-sm font-medium">Rows per page</p>
+              <p className="text-sm font-medium text-orange-600">Rows per page</p>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
                 onValueChange={(value) => {
@@ -241,7 +240,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
               </Select>
             </div>
 
-            <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+            <div className="flex w-[100px] items-center justify-center text-sm font-medium text-orange-600">
               Page {table.getState().pagination.pageIndex + 1} of{" "}
               {table.getPageCount()}
             </div>
@@ -249,7 +248,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex"
+                className="hidden h-8 w-8 p-0 lg:flex text-orange-400 hover:text-orange-600 bg-white hover:bg-orange-50"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
@@ -258,7 +257,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
               </Button>
               <Button
                 variant="outline"
-                className="h-8 w-8 p-0"
+                className="h-8 w-8 p-0  text-orange-400 hover:text-orange-600 bg-white hover:bg-orange-50"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
@@ -267,7 +266,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
               </Button>
               <Button
                 variant="outline"
-                className="h-8 w-8 p-0"
+                className="h-8 w-8 p-0  text-orange-400 hover:text-orange-600 bg-white hover:bg-orange-50"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
@@ -276,7 +275,7 @@ export function PizzaOrdersDataTable<TData extends PizzaOrders, TValue>({
               </Button>
               <Button
                 variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex"
+                className="hidden h-8 w-8 p-0 lg:flex  text-orange-400 hover:text-orange-600 bg-white hover:bg-orange-50"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
               >
