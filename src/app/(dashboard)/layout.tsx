@@ -108,7 +108,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <p className="flex flex-row">
                 <span>Signing out </span>
                 <span className="ml-2">
-                  <FaSpinner />
+                  <FaSpinner className="animate-spin" />
                 </span>
               </p>
             ) : (
