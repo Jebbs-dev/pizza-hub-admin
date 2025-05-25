@@ -7,21 +7,34 @@ import {
   pizzaOrdersData,
 } from "@/modules/pizza-orders/order-data";
 import { columns as pizzaOrdersColumns } from "@/modules/pizza-orders/table/pizza-orders-columns";
+import { useToast } from "@/hooks/use-toast";
 
 const PizzaOrdersPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<PizzaOrders[]>([]);
+  const { toast } = useToast();
 
   useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      setData(pizzaOrdersData);
-    }, 2000);
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        // Simulating API call with timeout
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setData(pizzaOrdersData);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to load pizza orders. Please try again later.",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    // Optional cleanup
-    return () => clearTimeout(timer);
-  }, []);
+    fetchData();
+  }, [toast]);
 
   return (
     <div className="px-5 md:px-10 py-2">
