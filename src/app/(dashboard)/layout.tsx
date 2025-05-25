@@ -2,7 +2,7 @@
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { formatRouteName } from "@/lib/utils";
 import {
@@ -15,11 +15,14 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useEffect } from "react";
 import { FaSpinner } from "react-icons/fa6";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { toast } = useToast();
 
   useEffect(() => {
     // If there's no session, redirect to the authentication page
@@ -27,6 +30,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       router.push("/auth");
     }
   }, [status, session, router]);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to sign out. Please try again.",
+      });
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -46,7 +62,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <SidebarProvider className="w-full h-[100vh] flex flex-row">
       <AppSidebar />
       <SidebarInset className="w-full overflow-auto bg-orange-600/5">
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+        <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-5 md:px-10">
           {/* <SidebarTrigger className="-ml-1" /> */}
           <Breadcrumb>
             <BreadcrumbList>
@@ -63,6 +79,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
+
+          <Button 
+            className="bg-orange-400 h-7 md:h-9 px-2 md:px-4 text-xs md:text-base" 
+            onClick={handleSignOut}
+          >
+            Sign out
+          </Button>
         </header>
 
         <div className="relative w-full h-full overflow-auto">{children}</div>
