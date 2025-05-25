@@ -19,7 +19,7 @@ const PizzaOrdersPage = () => {
       try {
         setIsLoading(true);
         // Simulating API call with timeout
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         setData(pizzaOrdersData);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
