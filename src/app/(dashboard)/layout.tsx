@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <SidebarProvider className="w-full flex flex-row">
+    <SidebarProvider className="w-full h-[100vh] flex flex-row">
       <AppSidebar />
       <SidebarInset className="w-full overflow-auto bg-orange-600/5">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
@@ -55,7 +55,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
-                <BreadcrumbPage className="text-orange-600">{formatRouteName(pathname)}</BreadcrumbPage>
+                <BreadcrumbPage className="text-orange-600">
+                  {pathname === "/pizza-orders"
+                    ? formatRouteName(pathname)
+                    : "Home"}
+                </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
