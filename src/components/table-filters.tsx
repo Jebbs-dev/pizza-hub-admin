@@ -199,6 +199,7 @@ const TableFilters = ({
                     "xl:w-[280px] justify-start text-left font-normal xl:ml-2",
                     !dateRange?.from && "text-muted-foreground"
                   )}
+                  data-testid="date-range-picker"
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {dateRange?.from ? (
