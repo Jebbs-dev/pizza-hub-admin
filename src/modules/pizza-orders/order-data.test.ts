@@ -1,4 +1,4 @@
-import { pizzaOrdersData, PizzaOrders } from './order-data';
+import { pizzaOrdersData } from './order-data';
 
 describe('order-data', () => {
   it('exports pizzaOrdersData as a non-empty array', () => {
