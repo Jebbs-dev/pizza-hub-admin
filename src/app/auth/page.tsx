@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaSpinner } from "react-icons/fa6";
+import { useToast } from "@/hooks/use-toast";
 
 const images = [
   "/images/auth-bg-1.jpg",
@@ -17,6 +18,7 @@ const images = [
 const AuthPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { toast } = useToast();
 
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -43,6 +45,19 @@ const AuthPage = () => {
   const goToSlide = (index: number) => {
     setCurrent(index);
     resetInterval();
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/" });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Authentication Error",
+        description: "Failed to sign in with Google. Please try again.",
+      });
+    }
   };
 
   if (status === "loading") {
@@ -98,18 +113,18 @@ const AuthPage = () => {
               />
             </>
           </h1>
-          <div className="w-[80%] h-[300px] mx-auto flex flex-col justify-center space-y-4 xl:w-[60%] bg-orange-50 lg:bg-transparent border-2 border-orange-400 rounded-md p-4 lg:p-10 mt-10 sm:mt-0">
-            <h1 className="text-2xl md:text-3xl font-semibold text-orange-400 text-center mb-3">
+          <div className="w-[80%] h-[300px] mx-auto flex flex-col justify-center space-y-4 xl:w-[60%] bg-orange-50 bg-opacity-60 lg:bg-transparent border-2 border-orange-400 rounded-md p-4 lg:p-10 mt-10 sm:mt-0">
+            <h1 className="text-2xl md:text-3xl font-semibold text-white text-center mb-3">
               Sign in to your account
             </h1>
-            <p className="text-sm md:text-base text-center lg:text-neutral-600 dark:text-foreground font-light">
+            <p className="text-sm md:text-base text-center  lg:text-neutral-600 dark:text-foreground font-light">
               Click the button below to use your Google account to sign in
             </p>
 
             <div className="flex flex-row items-center justify-center">
               <Button
-                onClick={() => signIn("google", { callbackUrl: "/" })}
-                className=" bg-white text-black border border-orange-400 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-60 transition"
+                onClick={handleSignIn}
+                className="bg-white text-black border border-orange-400 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-60 transition"
               >
                 <FcGoogle size={32} />
                 <span>Sign in with Google</span>
