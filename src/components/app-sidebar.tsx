@@ -17,6 +17,7 @@ import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useToast } from "@/hooks/use-toast";
 
 const items = [
   {
@@ -41,6 +42,20 @@ const logoutItem = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to sign out. Please try again.",
+      });
+    }
+  };
 
   return (
     <Sidebar collapsible="icon" className="h-screen">
@@ -70,7 +85,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
+                  <SidebarMenuButton
                     asChild
                     className="hover:bg-orange-600/10 hover:text-orange-400 rounded-lg"
                   >
@@ -99,7 +114,7 @@ export function AppSidebar() {
           {logoutItem.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                onClick={() => signOut()}
+                onClick={handleSignOut}
                 className="text-orange-600"
               >
                 <item.icon />
