@@ -4,7 +4,7 @@
 **Fulness Ojebiyi**
 
 ## Overview
-Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. It provides a comprehensive interface for managing a pizza restaurant's operations, including order management, inventory tracking, and user administration. The application features a clean, intuitive UI with real-time updates and secure authentication.
+Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. It provides a comprehensive interface for managing a pizza restaurant's operations, including order management, inventory tracking, and user administration. The application features a clean, intuitive UI with simulated real-time updates and secure authentication.
 
 ## Tech Stack
 - **Framework**: Next.js 15
@@ -16,7 +16,7 @@ Pizza Hub Admin is a modern, responsive admin dashboard built with Next.js 15. I
 - **Icons**: Lucide React, React Icons
 - **Table Management**: TanStack Table
 - **Type Safety**: TypeScript
-- **Testing**: Jest 29.7.0, React Testing Library
+- **Testing**: Jest, React Testing Library
 
 
 ## Prerequisites
