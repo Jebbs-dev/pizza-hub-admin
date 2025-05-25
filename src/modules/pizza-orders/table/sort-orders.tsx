@@ -8,7 +8,7 @@ const SortOrdersStatus = ({ data }: SortOrdersStatusProps) => {
   return (
     <span
       className={`
-      px-3 py-1 flex flex-row shrink-0 space-x-3 items-center rounded-sm 
+      px-3 py-1 flex flex-row shrink-0 space-x-3 items-center rounded-sm xl:w-11/12 
       ${
         data.status === "Pending"
           ? "bg-yellow-100 text-yellow-700 text-opacity-90"
